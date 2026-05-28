@@ -1,6 +1,8 @@
 import os
 import yt_dlp
 
+from telegram.ext import CommandHandler
+
 from telegram import (
     Update,
     InlineKeyboardButton,
@@ -16,6 +18,53 @@ from telegram.ext import (
 )
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    text = """
+🎬 <b>Universal Downloader Bot</b>
+
+📥 Supported Platforms:
+
+• YouTube
+• Instagram
+• Facebook
+• TikTok
+• Twitter/X
+
+⚡ Features:
+
+✅ Smart Quality Detection
+✅ 720p / 1080p Download
+✅ MP3 Audio Download
+✅ Fast Processing
+✅ High Quality Video
+
+📎 Just send any video link to start downloading.
+"""
+
+    keyboard = [
+        [
+            InlineKeyboardButton(
+                "📢 Updates Channel",
+                url="https://t.me/xoxo_universe"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "👨‍💻 Owner",
+                url="https://t.me/ds_apon"
+            )
+        ]
+    ]
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text(
+        text,
+        parse_mode="HTML",
+        reply_markup=reply_markup
+    )
 
 # Store user session data
 user_data_store = {}
@@ -220,5 +269,7 @@ app.add_handler(
 )
 
 print("✅ Bot Running...")
+
+app.add_handler(CommandHandler("start", start))
 
 app.run_polling()
