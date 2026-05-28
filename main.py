@@ -15,7 +15,7 @@ from telegram.ext import (
     filters,
 )
 
-BOT_TOKEN = "YOUR_BOT_TOKEN"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # Store user session data
 user_data_store = {}
